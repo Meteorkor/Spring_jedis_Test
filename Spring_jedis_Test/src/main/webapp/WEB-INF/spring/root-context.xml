@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:p="http://www.springframework.org/schema/p"
+  xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+<!-- 
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+ -->	
+	<!-- Root Context: defines shared resources visible to all other web components -->
+<!-- 
+	<bean id="jedisConnFactory"
+		class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory"
+		 p:use-pool="true" />
+ -->
+ <!-- 
+<bean id="jedisFactory" class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory"/>
+
+  <bean id="redisTemplate" class="org.springframework.data.redis.core.RedisTemplate"
+      p:connection-factory="jedisFactory"/>
+ -->
+ <!-- 		
+ <bean id="jedisConnectinFactory" class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory">
+     <property name="hostName" value="218.145.171.194" />
+     <property name="port" value="6379" />
+     <property name="usePool" value="true" />
+ </bean>
+
+<bean id="stringRedisSerializer" class="org.springframework.data.redis.serializer.StringRedisSerializer" />
+ <bean id="redisTemplate" class="org.springframework.data.redis.core.RedisTemplate" lazy-init="false">
+  <property name="connectionFactory" ref="jedisConnectinFactory" />
+  <property name="keySerializer" ref="stringRedisSerializer" />
+  <property name="hashKeySerializer" ref="stringRedisSerializer" />
+  <property name="valueSerializer" ref="stringRedisSerializer" />
+ </bean>
+ -->
+ 
+ 
+</beans>
