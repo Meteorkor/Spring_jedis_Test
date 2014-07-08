@@ -7,8 +7,9 @@ public class Human {
 	public String getName() {
 		return name;
 	}
-	public void setName(String name) {
+	public Human setName(String name) {
 		this.name = name;
+		return this;
 	}
 	public String getAge() {
 		return age;
