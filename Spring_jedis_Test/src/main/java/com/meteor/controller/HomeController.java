@@ -48,7 +48,7 @@ public class HomeController {
 		ArrayList<Human> human_list = new ArrayList<Human>();
 
 		Jedis jedis = new Jedis("localhost");
-			for (String h_name : jedis.lrange(key_name, 0, jedis.llen(key_name))) {
+			for (String h_name : jedis.lrange(key_name, 0, jedis.llen(key_name))) {//리스트 출력
 				human_list.add(new Human().setName(h_name));
 			}
 		jedis.close();
@@ -69,4 +69,23 @@ public class HomeController {
 		return "redirect:.";
 	}
 
+	@RequestMapping(value = "/delete", method = RequestMethod.POST)
+	public String delete_name(Locale locale, Model model,
+			@RequestParam("index") int index) {
+
+		Jedis jedis = new Jedis("localhost");
+		//jedis.rpush(key_name, h_name);
+		//
+		jedis.lset(key_name, index, "");//공백으로 만들고
+		
+		jedis.lrem(key_name, 1, "");//공백을 지운다
+		
+		
+		
+		
+		jedis.close();
+
+		return "redirect:.";
+	}
+	
 }
