@@ -1,5 +1,6 @@
 package com.meteor.model;
 
+
 public class Human {
 
 	String name;

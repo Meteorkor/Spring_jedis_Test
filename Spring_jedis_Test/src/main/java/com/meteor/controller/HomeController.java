@@ -4,6 +4,7 @@ import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
+import java.util.concurrent.Callable;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,6 +21,7 @@ import com.meteor.model.Human;
 /**
  * Handles requests for the application home page.
  */
+
 @Controller
 public class HomeController {
 
@@ -30,6 +32,7 @@ public class HomeController {
 	
 	private static final Logger logger = LoggerFactory
 			.getLogger(HomeController.class);
+
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
@@ -45,34 +48,47 @@ public class HomeController {
 
 		ArrayList<Human> human_list = new ArrayList<Human>();
 
-		for (String h_name :   jedis_dao.list_human(key_name)) {
+		for (String h_name :   jedis_dao.get_value_list(key_name)) {
 
 			human_list.add(new Human().setName(h_name));// add human name
 		}
-		
 
 		model.addAttribute("list", human_list);
 
+		jedis_dao.print_test();
+		
+		
 		return "home";
 	}
-
+	
 	@RequestMapping(value = "/write", method = RequestMethod.POST)
-	public String write_name(Locale locale, Model model,
-			@RequestParam("h_name") String h_name) {
-
-		jedis_dao.human_write(key_name, h_name);
-
-		return "redirect:.";
+	public Callable<String> write_name(Locale locale, Model model,
+			@RequestParam("h_name") final String h_name) {
+		
+		return new Callable<String>() {
+			
+			@Override
+			public String call() throws Exception {
+				jedis_dao.key_value_write(key_name, h_name);
+				
+				return "redirect:.";
+			}
+		}; 
+		
 	}
 
 	@RequestMapping(value = "/delete", method = RequestMethod.POST)
 	public String delete_name(Locale locale, Model model,
 			@RequestParam("index") int index) {
-
 		
-		jedis_dao.human_delete(key_name, index);
-
+		jedis_dao.del_idx_value(key_name, index);
 		return "redirect:.";
 	}
 
+	
+	public void test_pp(){
+		
+		System.out.println("test pp");
+		
+	}
 }

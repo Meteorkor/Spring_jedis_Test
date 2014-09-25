@@ -4,6 +4,16 @@
 <head>
 	<title>Home</title>
 	<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+
+<style>
+li.human_li {
+	/* 
+	width: auto;
+	 */
+	width: 100px;
+	cursor: pointer;
+}
+</style>	
 </head>
 <body>
 <h1>
@@ -15,21 +25,18 @@
 <%
 request.setCharacterEncoding("UTF-8");
 %>
-<!-- 
-<form action="write" method="POST" >
- -->
  <form action="write" method="POST" onsubmit="return submit_valid();" >
 <input name='h_name' id='h_name' type="text" />
 <input type="submit" value='저장'/>
 </form>
-<%----%> 
+ 
 <br>
 <c:out value="${list.size()}"></c:out>
  
 <c:if test="${list.size() >0 }">
 <ul class='human_list'>
 	<c:forEach var="index" begin="0" end="${list.size()-1}" step="1">
-	<li><input type="hidden" value='${index}'>${list[index].getName()}</li>
+	<li class='human_li'><input type="hidden" value='${index}'>${list[index].getName()}</li>
 	</c:forEach>
 </ul>
 </c:if>
@@ -38,7 +45,7 @@ request.setCharacterEncoding("UTF-8");
 <script>
 window.onload = function(){
 	document.getElementById("h_name").focus();
-}
+};
 
 submit_valid = function(){
 	
@@ -48,7 +55,7 @@ submit_valid = function(){
 		return false;
 	}
 	
-}
+};
 </script>
 
 <script>
@@ -68,7 +75,7 @@ var ftn_human_delete = function(){
 			}
 		});
 
-	}
+	};
 	$("ul.human_list li").bind("click", ftn_human_delete);
 	
 </script>

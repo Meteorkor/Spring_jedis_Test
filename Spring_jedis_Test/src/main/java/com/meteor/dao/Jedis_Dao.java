@@ -12,27 +12,23 @@ import redis.clients.jedis.JedisPoolConfig;
 public class Jedis_Dao {
 
 	private JedisPool pool;
-	
-	
+	private final String host_name="doomgreen.dlinkddns.com";
 
-private Jedis_Dao(){
+	private Jedis_Dao(){
 		pool = new JedisPool( new JedisPoolConfig(), host_name);
-		
 	}
 	
 	/**
 	 * 이름 입력
 	 * @param key_name
-	 * @param h_name
+	 * @param value
 	 */
-	public void human_write(String key_name, String h_name){
+	public void key_value_write(String key_name, String value){
 		Jedis jedis = get_Jedis();
 		
-		jedis.rpush(key_name, h_name);
-		System.out.println("print_sss");
-		
+			jedis.rpush(key_name, value);	
+			
 		pool.returnResource(jedis);
-		
 		
 	}
 	/**
@@ -50,13 +46,10 @@ private Jedis_Dao(){
 	 * @param key_name
 	 * @return
 	 */
-	public List<String> list_human(String key_name){
-		
+	public List<String> get_value_list(String key_name){
 		Jedis jedis = get_Jedis();
 		
 		long list_len = jedis.llen(key_name);
-		
-		
 		List<String> result_list = jedis.lrange( key_name, 0, list_len );
 	
 		pool.returnResource(jedis);
@@ -69,8 +62,7 @@ private Jedis_Dao(){
 	 * @param key_name
 	 * @param index
 	 */
-	public void human_delete(String key_name , int index){
-
+	public void del_idx_value(String key_name , int index){
 		Jedis jedis = get_Jedis();
 		jedis.lset(key_name, index, "");// 공백으로 만들고
 		jedis.lrem(key_name, 1, "");// 공백을 지운다
@@ -79,5 +71,13 @@ private Jedis_Dao(){
 		
 	}
 	
+
+	public void print_test(){
+		System.out.println("print_test111");
+	}
+	
+	public void print_test2(){
+		System.out.println("print_test222");
+	}
 	
 }

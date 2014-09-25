@@ -1,1 +1,1 @@
-테스트
+After setting host_name(Jedis_Dao), please use
