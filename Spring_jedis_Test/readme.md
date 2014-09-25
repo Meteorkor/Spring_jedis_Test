@@ -1,1 +1,1 @@
-After setting host_name(Jedis_Dao), please use
+Please use, After setting host_name(Jedis_Dao)
